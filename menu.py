@@ -1,6 +1,7 @@
 from importe_archivos import *
 from funciones_principales import *
 from batalla import *
+from parte_json import *
 # lista_principal = parser_csv('DBZ.csv')
 # lista_ajustada_raza = ajustar_diccionarios(lista_principal, 'race')
 # lista_ajustada_habilidad = ajustar_diccionarios(lista_principal, 'ability')
@@ -46,7 +47,7 @@ def mostrar_menu():
             case 4:
                 guardar_txt(lista_principal)
             case 5:
-                pass
+                guardar_datos(lista_principal)
             case 6:
                 pass
             case 7:
