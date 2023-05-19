@@ -1,57 +1,72 @@
-from importe_archivos import *
-from funciones_principales import *
+from data_import import *
+from def_dos_a_cuatro import *
 from batalla import *
-from parte_json import *
-# lista_principal = parser_csv('DBZ.csv')
-# lista_ajustada_raza = ajustar_diccionarios(lista_principal, 'race')
-# lista_ajustada_habilidad = ajustar_diccionarios(lista_principal, 'ability')
-
-def imprimir_dato(cadena:str)->None:
-    '''
-    Brief: Imprime en la consola lo que le pasemos por parametros
-    Parameters: 
-        cadena: str -> lo que queremos que imprima por consola
-    Return: None
-    '''
-    print(cadena)
+from def_6 import *
 
 def imprimir_menu():
-    imprimir_dato(
+    '''
+    Brief: Imprime las opciones del menu
+    Parameters:
+        None
+    Return: None
+    '''
+    print(
     '''
     1. Mostrar cantidad de personajes por raza
     2. Listar personaje por raza
-    3. Mostrar personajes que poseen una misma habilidad
+    3. Mostrar los personajes con la misma habilidad
     4. Batalla
-    5. json
+    5. Generar listado con los personajes con la misma raza y habildiad (json)
     6. lerr json
     7. salir
     ''')
 
-def numero_usario():
+def validar_entero(string_numero:str)->bool:
+    '''
+    Brief: Indica si el un input es un numero o no.
+    Parameters:
+        string_numero: str -> El numero que va a analizar
+    Return: boolean (si es un numero el valor sera True y si es una letra el valor sera False)
+    '''
+    return string_numero.isnumeric()
+
+def numero_usario()->int:
+    '''
+    Brief: Le pide al usario que ingrese un numero, luego la analiza con la funcion anteriro y si no lo es le vuelve a pedir que ingrese un numero.
+    Parameters:
+        None
+    Return: int
+    '''
     imprimir_menu()
-    respuesta = int(input("Ingrese una opcion: "))
-    return respuesta
+    respuesta = input("Ingrese una opcion: ")
+    validacion = validar_entero(respuesta)
+    if validacion == True:
+        return int(respuesta)
 
-
-def mostrar_menu():
+def mostrar_menu(lista)->None:
+    '''
+    Brief: Realiza el match para ejecutar las funciones linkeadas a cada numero.
+    Parameters:
+        lista: list -> lista que le vamos a pasar a la llamada de las funciones
+    Return: None
+    '''
     seguir = True
     while seguir == True:
         respuesta = numero_usario()
         match respuesta:
             case 1: 
-                contar_por_raza(lista_principal)
+                contar_por_raza(lista)
             case 2:
-                listar_agrupados(lista_ajustada_raza, 'race')
+                listar_personajes_por_raza(lista)
             case 3:
-                buscar_personajes_por_habilidad(lista_ajustada_habilidad)
+                buscar_personajes_por_habilidad(lista)
             case 4:
-                guardar_txt(lista_principal)
+                guardar_txt(lista)
             case 5:
-                guardar_datos(lista_principal)
+                guardar_personajes_en_json(lista)
             case 6:
-                pass
+                leer_json()
             case 7:
                 seguir = False
 
-mostrar_menu()
-#contar_por_raza()
+mostrar_menu(lista_principal)
